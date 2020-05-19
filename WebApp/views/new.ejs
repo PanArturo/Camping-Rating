@@ -1,0 +1,19 @@
+<%- include("partials/header") %>
+
+<div class="container">
+		<form action="/campground" method="POST">
+		  	<div class="form-group">
+				<label>Campground name</label>
+				<input type="text" class="form-control" name="name">
+		  	</div>
+		  	<div class="form-group">
+				<label>Image URL</label>
+			<!-- <input type="text" class="form-control" name="image"> -->
+				<textarea class="form-control" name="image" rows="3"></textarea>
+		  	</div>		  
+		  	<button type="submit" class="btn btn-primary">Submit</button>			
+			<a href="/campground" class="btn btn-secondary active mx-2" role="button" aria-pressed="true">Go Back</a>	
+		</form>	
+</div>
+
+<%- include("partials/footer") %>
