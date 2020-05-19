@@ -1,0 +1,32 @@
+<%- include("partials/header") %>
+
+<div class="container">
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="display-4">Welcome to the Campground page</h1>
+		    <p class="lead">This is a simple hero unit, a simple jumbotron-style component to featured content or information.</p>
+		    <hr class="my-4">
+		    <a href="/campground/new" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Add Your Favorite CampGround</a>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row text-center" style="display:flex; flex-wrap: wrap;">
+			<% for(var i = 0; i < cg.length; i++) { %>
+				<div class="col-md-3 col-sm-6 my-1">	
+					<div class="card" style="width:auto;">
+					  <img src="<%=cg[i].image%>" class="card-img-top" alt="<%=cg[i].image%>">
+					  <div class="card-body">
+						<h5 class="card-title"><%= cg[i].name%></h5>
+					  </div>
+					</div>
+				</div>
+			<% } %>
+		</div>
+	</div>
+	<div class="d-flex justify-content-center">
+		<a href="/" class="btn btn-secondary btn-lg active my-3" role="button" aria-pressed="true">Back to Main Page</a>	
+	</div>
+</div>
+	
+<%- include("partials/footer") %>
