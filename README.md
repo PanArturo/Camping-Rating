@@ -1,6 +1,6 @@
 # Camping Rating
 
-(In process)
+(In process 75%)
 
 This is a dynamic website with full of user interaction such as:
 
@@ -11,5 +11,5 @@ This is a dynamic website with full of user interaction such as:
           - Routing
           - etc...
 
-Will be created using HTML/CSS, JavaScript, Node.js, Express.js, MongoDB.
+Creating using HTML/CSS, JavaScript, Node.js, Express.js, MongoDB.
 
