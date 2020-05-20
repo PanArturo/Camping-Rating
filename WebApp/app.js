@@ -1,23 +1,23 @@
 
 const express 	 = require('express'),			// import express module
-	  app     	 = express(),					// use express methods 
-	  bodyParser = require('body-parser'),		// middleware to parse post requests info
-	  mongoose   = require('mongoose');			// ODM for the mongoDb
+      app     	 = express(),				// use express methods 
+      bodyParser = require('body-parser'),		// middleware to parse post requests info
+      mongoose   = require('mongoose');			// ODM for the mongoDb
 
-mongoose.set('useUnifiedTopology', true);												// avoid deprecated error
+mongoose.set('useUnifiedTopology', true);							// avoid deprecated error
 mongoose.connect('mongodb://localhost:27017/yelp_camp', {useNewUrlParser: true});		// connect to the database
-app.use(bodyParser.urlencoded({extended: true}));										// express handling incoming url data
-app.set("view engine", "ejs");															// embeded javascript files 
-app.use(express.static("public"));														// serve static files (html, css, js) 
+app.use(bodyParser.urlencoded({extended: true}));						// express handling incoming url data
+app.set("view engine", "ejs");									// embeded javascript files 
+app.use(express.static("public"));								// serve static files (html, css, js) 
 app.listen(3000, () => console.log("Successfully connected to the yelp camp website."));// listen to requests at port 3000
 
 
-var cgSchema = new mongoose.Schema({ 										// Schema for our campground
+var cgSchema = new mongoose.Schema({ 				// Schema for our campground
 	name: String, 
 	image: String, 
 	description: String 
 });  	
-var Campground = mongoose.model("campground", cgSchema);    				// Create model for the campground schema
+var Campground = mongoose.model("campground", cgSchema);    	// Create model for the campground schema
 
 // Campground.create({
 // 	name: "Wyoming Atlantica", 
