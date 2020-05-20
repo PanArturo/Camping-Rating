@@ -1,59 +1,72 @@
-// Set up express for routing
-const express = require('express');
-const app = express();
 
-// Middleware to parse incoming post requests in url encoded information
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: true}));
+const express 	 = require('express'),			// import express module
+	  app     	 = express(),					// use express methods 
+	  bodyParser = require('body-parser'),		// middleware to parse post requests info
+	  mongoose   = require('mongoose');			// ODM for the mongoDb
 
-// Set up the embeded javascript files
-app.set("view engine", "ejs");
+mongoose.set('useUnifiedTopology', true);												// avoid deprecated error
+mongoose.connect('mongodb://localhost:27017/yelp_camp', {useNewUrlParser: true});		// connect to the database
+app.use(bodyParser.urlencoded({extended: true}));										// express handling incoming url data
+app.set("view engine", "ejs");															// embeded javascript files 
+app.use(express.static("public"));														// serve static files (html, css, js) 
+app.listen(3000, () => console.log("Successfully connected to the yelp camp website."));// listen to requests at port 3000
 
-// Built-in middleware function in Express. Serving static files (html,css,js)
-app.use(express.static("public"));
 
-// Set up port ready for requests
-const port = 3000;
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+var cgSchema = new mongoose.Schema({ 										// Schema for our campground
+	name: String, 
+	image: String, 
+	description: String 
+});  	
+var Campground = mongoose.model("campground", cgSchema);    				// Create model for the campground schema
 
-app.get("/", function(req, res){
+// Campground.create({
+// 	name: "Wyoming Atlantica", 
+// 	image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQbsx9DoLlP0UmPFaf1T9vofi1kbFRlv34QVhHuA2UOk7nfP2AM&usqp=CAU",
+// 	description: "The most beautiful place in the world, please come visit me."
+// 	},
+// 	function(error, campground){
+// 		if (error) return handleError(error);
+// });
+
+app.get("/", function(req, res){ 
 	res.render("landing")
 });
 
-// Temporary hard coding array before connecting to MongoDB
-
-var cg = [  	{name: "nameNumberOne", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQbsx9DoLlP0UmPFaf1T9vofi1kbFRlv34QVhHuA2UOk7nfP2AM&usqp=CAU"},
-				{name: "nameNumberTwo", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTC7kVqSBj4KKHd_rcq3LNp8JRnFin-du4SxFoBxG0jPE7-SLvF&usqp=CAU"},
-		  		{name: "nameNumberOne", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQbsx9DoLlP0UmPFaf1T9vofi1kbFRlv34QVhHuA2UOk7nfP2AM&usqp=CAU"},
-				{name: "nameNumberTwo", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTC7kVqSBj4KKHd_rcq3LNp8JRnFin-du4SxFoBxG0jPE7-SLvF&usqp=CAU"},
-		  		{name: "nameNumberOne", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQbsx9DoLlP0UmPFaf1T9vofi1kbFRlv34QVhHuA2UOk7nfP2AM&usqp=CAU"},
-				{name: "nameNumberTwo", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTC7kVqSBj4KKHd_rcq3LNp8JRnFin-du4SxFoBxG0jPE7-SLvF&usqp=CAU"},
-		  		{name: "nameNumberOne", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQbsx9DoLlP0UmPFaf1T9vofi1kbFRlv34QVhHuA2UOk7nfP2AM&usqp=CAU"},
-				{name: "nameNumberTwo", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTC7kVqSBj4KKHd_rcq3LNp8JRnFin-du4SxFoBxG0jPE7-SLvF&usqp=CAU"},
-		  		{name: "nameNumberOne", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQbsx9DoLlP0UmPFaf1T9vofi1kbFRlv34QVhHuA2UOk7nfP2AM&usqp=CAU"},
-				{name: "nameNumberTwo", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTC7kVqSBj4KKHd_rcq3LNp8JRnFin-du4SxFoBxG0jPE7-SLvF&usqp=CAU"},
-				{name: "nameNumberThree", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcToA3RPVrMGyXpEy1T17GQR5l7ZKL5e9w9tjzpInoNX8PYQJVlH&usqp=CAU"} ];
-
-// Route and render campground.ejs page upon user requests
 app.get("/campground", function(req, res){
-	res.render("campground", {cg:cg})
+	Campground.find({}, function(error, allCampgrounds){
+		if
+			(error) console.log(error);
+		else 
+			res.render("index", {cg:allCampgrounds});
+	});
 });
 
-// Route and render new.ejs page upon user requests
+// RESTful new
 app.get("/campground/new", function(req,res){
 	res.render("new")
 });
 
-// Route to miscellaneous.ejs when user request does not exists
+app.get("/campground/:id", function(req,res){
+	Campground.findById(req.params.id,function(error, thisCampground){
+		if
+			(error) console.log(error);
+		else 
+			res.render("show", {cg:thisCampground});
+	});
+});
+
 app.get("*", function(req, res){
 	res.render("miscellaneous")
 });
 
-// Get user submitted form data and render /campground
+// RESTful -- create
 app.post("/campground", function(req, res){
-	var name = req.body.name;
-	var image = req.body.image;
-	var newCampground = {name:name , image:image};
-	cg.push(newCampground);
-	res.redirect("/campground");
+	var name = req.body.name, image = req.body.image, description = req.body.description
+	newCampground = {name:name , image:image, description: description};
+	Campground.create(newCampground, function(error, newInstance){
+		if
+			(error) console.log(error);
+		else
+			res.redirect("/campground");
+	});
 });
