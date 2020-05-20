@@ -8,8 +8,7 @@ This is a dynamic website with full of user interaction such as:
           - User sign up and authentication
           - Search for camping locations using google map.
           - MongoDB non-relational sotrage of user data.
-          - Routing
-          - etc...
+          - RESTful routing
 
 Creating using HTML/CSS, JavaScript, Node.js, Express.js, MongoDB.
 
