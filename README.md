@@ -9,6 +9,7 @@ This is a dynamic website as a yelp-clone:
           - JavaScript
           - Node.js & Express.js
           - MongoDB
+          - Heroku
 
 # Techniques
               
@@ -19,6 +20,6 @@ This is a dynamic website as a yelp-clone:
           - MongoDB non-relational data storage.
           - NPM (Middlewares)
           - Code Refactoring
-
+          - Deploy using Heroku
 
 
