@@ -2,13 +2,23 @@
 
 (In process 75%)
 
-This is a dynamic website with full of user interaction such as:
+This is a dynamic website as a yelp-clone:
 
-          - adding and deleting comments, rating posts.      
-          - User sign up and authentication
-          - Search for camping locations using google map.
-          - MongoDB non-relational sotrage of user data.
-          - RESTful routing
+          - HTML/CSS
+          - Bootstrap
+          - JavaScript
+          - Node.js & Express.js
+          - MongoDB
 
-Creating using HTML/CSS, JavaScript, Node.js, Express.js, MongoDB.
+# Techniques
+              
+          - RESTful routing (Index, Show, New, Edit, Create, Edit, Update, and Destroy)
+          - Database associations (user, posts, comments, rating)     
+          - User Authentication
+          - Google Map API
+          - MongoDB non-relational data storage.
+          - NPM (Middlewares)
+          - Code Refactoring
+
+
 
