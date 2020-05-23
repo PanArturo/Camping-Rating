@@ -2,7 +2,7 @@
   "name": "project",
   "version": "1.0.0",
   "description": "first version: adding landing page, adding campgrounds page that lists all campgrounds. Each campground has a name and image.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
