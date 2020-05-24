@@ -1,4 +1,4 @@
-# Camping Rating
+# Yelp-Clone
 
 This is a dynamic website with yelp-like features.
 
