@@ -15,9 +15,9 @@ This is a dynamic website as a yelp-clone:
               
           - RESTful routing (Index, Show, New, Edit, Create, Edit, Update, and Destroy)
           - Database associations (user, posts, comments, rating)     
-          - User Authentication
+          - User Authentication (Passport.js)
           - Google Map API
-          - MongoDB non-relational data storage.
+          - MongoDB 
           - NPM (Middlewares)
           - Code Refactoring
           - Deploy using Heroku
