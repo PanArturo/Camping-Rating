@@ -1,8 +1,6 @@
 # Camping Rating
 
-(In process 75%)
-
-This is a dynamic website as a yelp-clone:
+This is a dynamic website with yelp-like features.
 
           - HTML/CSS
           - Bootstrap
