@@ -16,7 +16,7 @@ This is a dynamic website with yelp-like features.
           - User Authentication (Passport.js)
           - Google Map API
           - MongoDB 
-          - NPM (Middlewares)
+          - NPM 
           - Code Refactoring
           - Deploy using Heroku
 
