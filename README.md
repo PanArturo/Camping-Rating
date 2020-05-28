@@ -12,13 +12,13 @@ This is a dynamic website with yelp-like features.
 # Techniques
               
           - RESTful routing 
-          - Database associations (user, post, comment, rating)     
+          - CRUD on database system
+          - Database associations (user, post, comment, rating)       
           - User Authentication & Authorization (Passport.js) 
-          - Flash message 
-          - Google Map API
-          - MongoDB 
+          - Flash messages (connect-flash)
+          - NoSQL (MongoDB)
           - NPM 
-          - Code Refactoring
+          - Code Refactoring 
           - Deploy using Heroku
 
 
