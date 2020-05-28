@@ -1,13 +1,12 @@
-<!-- Display all the campgrounds -->
+<%- include("../partials/header") %>
 
-<%- include("partials/header") %>
 <div class="container">
 	<div class="jumbotron">
 		<div class="container">
 			<h1 class="display-4">Welcome to the Campground page</h1>
-		    <p class="lead">This is a simple hero unit, a simple jumbotron-style component to featured content or information.</p>
+		    <p class="lead">Find your favorite campground place to explore in the future.</p>
 		    <hr class="my-4">
-		    <a href="/campground/new" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Add Your Favorite CampGround</a>
+		    <a href="/campground/new" class="btn btn-outline-secondary btn-lg" role="button" aria-pressed="true">Add Your Favorite CampGround</a>
 		</div>
 	</div>
 	
@@ -19,7 +18,7 @@
 					  <img src="<%=cg[i].image%>" class="card-img-top" alt="<%=cg[i].image%>">
 					  <div class="card-body">
 						<h5 class="card-title"><%= cg[i].name%></h5>
-						<a href="/campground/<%= cg[i].id %>" class="btn btn-primary">More Info</a>
+						<a href="/campground/<%= cg[i].id %>" class="btn btn-outline-info">More Info</a>
 					  </div>
 					</div>
 				</div>
@@ -27,8 +26,8 @@
 		</div>
 	</div>
 	<div class="d-flex justify-content-center">
-		<a href="/" class="btn btn-secondary btn-lg active my-3" role="button" aria-pressed="true">Back to Main Page</a>	
+		<a href="/" class="btn btn-outline-secondary btn-lg my-3" role="button" aria-pressed="true">Back to Main Page</a>	
 	</div>
 </div>
 	
-<%- include("partials/footer") %>
+<%- include("../partials/footer") %>
