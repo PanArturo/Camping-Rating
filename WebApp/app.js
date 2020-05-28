@@ -1,72 +1,53 @@
+const express 	 		= require('express'),				
+	  app     	 	= express(),						
+	  bodyParser 		= require('body-parser'),		// import middleware to parse req.body 
+	  mongoose   		= require('mongoose'),			// import module for the database
+	  passport 		= require("passport"),			// import module for the user authenticatiton
+	  LocalStrategy 	= require("passport-local"),		// import module with functions to authenticate user 
+	  methodOverride	= require('method-override'),	    	// import module that overrides HTML Get and Post
+	  Campground 		= require("./models/campground"),   	// campground model 
+	  Comment 	 	= require("./models/comment"),		//    comment model
+	  User 			= require("./models/user"),		//       user model
+	  seedDB 	 	= require("./seeds");			// seeding function to populate database
+		
+var commentRoutes    	= require("./routes/comments"),			//  import routes from comments folder
+    campgroundRoutes 	= require("./routes/campgrounds"),  		//  import routes from campgrounds folder
+    authRoutes       	= require("./routes/authentication");		// import routes from authentication folder
 
-const express 	 = require('express'),			// import express module
-      app     	 = express(),				// use express methods 
-      bodyParser = require('body-parser'),		// middleware to parse post requests info
-      mongoose   = require('mongoose');			// ODM for the mongoDb
+/* Database and regular file configuration */
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);						// avoid deprecated error
+mongoose.connect('mongodb://localhost:27017/yelp_camp', {useNewUrlParser: true});	// connect to the database
+app.use(bodyParser.urlencoded({extended: true}));					// middleware handling url data from form submission
+app.use(methodOverride("_method"));
+app.set("view engine", "ejs");								// embeded javascript files 
+app.use(express.static(__dirname + "/public"));						// serve static files (html, css, js) 
+app.listen(3000, () => console.log("Successfully connected to the yelp camp website."));
+/* Database, middleware and express routing configuration */
 
-mongoose.set('useUnifiedTopology', true);							// avoid deprecated error
-mongoose.connect('mongodb://localhost:27017/yelp_camp', {useNewUrlParser: true});		// connect to the database
-app.use(bodyParser.urlencoded({extended: true}));						// express handling incoming url data
-app.set("view engine", "ejs");									// embeded javascript files 
-app.use(express.static("public"));								// serve static files (html, css, js) 
-app.listen(3000, () => console.log("Successfully connected to the yelp camp website."));// listen to requests at port 3000
+/* Passport Configuration */
+app.use(require("express-session")({				  
+	secret: "Dynamic Website",
+	resave: false,
+	saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate())); 			// Configured User.authenticate from passport-local-mongoose
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+app.use(function(req,res,next){						// Pass the user object to the var app 
+	res.locals.currentUser = req.user;				// user object contains info such as logged in or logged out  
+	next();											  
+});													  
+/* Passport Configuration */
 
-
-var cgSchema = new mongoose.Schema({ 				// Schema for our campground
-	name: String, 
-	image: String, 
-	description: String 
-});  	
-var Campground = mongoose.model("campground", cgSchema);    	// Create model for the campground schema
-
-// Campground.create({
-// 	name: "Wyoming Atlantica", 
-// 	image: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQbsx9DoLlP0UmPFaf1T9vofi1kbFRlv34QVhHuA2UOk7nfP2AM&usqp=CAU",
-// 	description: "The most beautiful place in the world, please come visit me."
-// 	},
-// 	function(error, campground){
-// 		if (error) return handleError(error);
-// });
-
-app.get("/", function(req, res){ 
-	res.render("landing")
-});
-
-app.get("/campground", function(req, res){
-	Campground.find({}, function(error, allCampgrounds){
-		if
-			(error) console.log(error);
-		else 
-			res.render("index", {cg:allCampgrounds});
-	});
-});
-
-// RESTful new
-app.get("/campground/new", function(req,res){
-	res.render("new")
-});
-
-app.get("/campground/:id", function(req,res){
-	Campground.findById(req.params.id,function(error, thisCampground){
-		if
-			(error) console.log(error);
-		else 
-			res.render("show", {cg:thisCampground});
-	});
-});
-
-app.get("*", function(req, res){
+/* Refactored routing methods code to another the folder "routes" */
+app.use("/", authRoutes);						// first argument "/" refactors the route name to default 
+app.use("/campground", campgroundRoutes);
+app.use("/campground/:id/comments", commentRoutes);
+app.get("*", function(req,res){
 	res.render("miscellaneous")
 });
-
-// RESTful -- create
-app.post("/campground", function(req, res){
-	var name = req.body.name, image = req.body.image, description = req.body.description
-	newCampground = {name:name , image:image, description: description};
-	Campground.create(newCampground, function(error, newInstance){
-		if
-			(error) console.log(error);
-		else
-			res.redirect("/campground");
-	});
-});
+/* Refactored routing methods code to another the folder "routes" */
