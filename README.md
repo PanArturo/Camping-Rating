@@ -11,9 +11,10 @@ This is a dynamic website with yelp-like features.
 
 # Techniques
               
-          - RESTful routing (Index, Show, New, Edit, Create, Edit, Update, and Destroy)
-          - Database associations (user, posts, comments, rating)     
-          - User Authentication (Passport.js)
+          - RESTful routing 
+          - Database associations (user, post, comment, rating)     
+          - User Authentication & Authorization (Passport.js) 
+          - Flash message 
           - Google Map API
           - MongoDB 
           - NPM 
