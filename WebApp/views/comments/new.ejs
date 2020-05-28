@@ -1,0 +1,15 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+	 <h1 style="text-align: center">Add a comment to <%= cg.name %></h1>
+		<form action="/campground/<%= cg._id %>/comments" method="POST">	  
+			<div class="form-group">
+				<label>Text</label>
+				<textarea class="form-control" name="comment[text]" rows="2" placeholder="message" required></textarea>
+		  	</div>	
+		  	<button type="submit" class="btn btn-primary">Submit</button>			
+			<a href="/campground/<%= cg._id %>" class="btn btn-secondary active mx-2" role="button" aria-pressed="true">Go Back</a>	
+		</form>	
+</div>
+
+<%- include("../partials/footer") %>
