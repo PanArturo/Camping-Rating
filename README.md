@@ -1,6 +1,6 @@
 # Yelp-Clone
           
-          - (Constantly adding and pushing new features)
+          - Constantly adding and pushing new features, Check it out and any suggestions are welcome.
           - https://pan-arturo-project-yelpclone.herokuapp.com/
           
 
