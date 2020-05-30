@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" 
 		  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 	<link rel="stylesheet" href="/stylesheets/main.css">
-    <title>Pan Arturo Web App</title>
+	<script src="https://kit.fontawesome.com/0a8fa02a57.js" crossorigin="anonymous"></script>
+    <title>Pan Arturo</title>
   </head>
   <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
-	  <a class="navbar-brand" href="/">Web</a>
+	  <a class="navbar-brand" href="/"><i class="fas fa-globe-americas fa-lg"></i></a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	  </button>
@@ -25,12 +26,30 @@
 		</ul>
 		<ul class="navbar-nav">
 			<% if(!currentUser){ %>
-			<li><a class="nav-link" href="/login">Login</a></li>
-			<li><a class="nav-link" href="/register">Sign Up</a></li>
+			<li><a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+			<li><a class="nav-link" href="/register">Sign Up <i class="fas fa-user-plus"></i></a></li>
 			<% } else { %>
 			<li><a class="nav-link" href="">Welcome back, <%= currentUser.username %></a></li>
-			<li><a class="nav-link" href="/logout">Logout</a></li>
+			<li><a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
 			<% } %>
 		</ul>
 	  </div>
 	</nav>	  
+		<div class="container">
+			<% if(error && error.length > 0) { %>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+				<i class="fas fa-times-circle"></i> <%= error %>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<% }if (success && success.length > 0) { %>
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<i class="fas fa-check-circle"></i> <%= success %>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<% } %>
+	 	</div>
+		
