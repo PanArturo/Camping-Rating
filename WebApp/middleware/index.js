@@ -6,51 +6,56 @@ middlewareObj.isLoggedIn = function (req, res, next){
 	// Check if someone is loggedin
 	if(req.isAuthenticated())
 		return next();
+	req.session.returnTo = req.originalUrl;
+	req.flash("error", "Access Denied. Please Login");
 	res.redirect("/login");
 }
 
-/* Check if the user is the author of a campground
-   if(userIsLogeedIn)
-		find Campground 
-			if the author of the campground == currentLoggedInUser
-				move on to the next operation in the route (edit page)
-			else
-				go back to previous page
-	else
-		redirect to login page 
-*/
+// Check if the user is the author of a campground
 middlewareObj.isCampgroundOwner = function(req, res, next){
 	if(req.isAuthenticated()) {
 		Campground.findById(req.params.id, function(error,thisCampground){
-			if(error)
-				res.redirect("back"); 
+			if(error || !thisCampground){
+				req.flash("error", "Error Occurred. Campground not found");
+				return res.redirect("back"); 
+			} 
 			else {
 				if(thisCampground.author.id.equals(req.user._id))
 					next();
-				else 
+				else {
+					req.flash("error", "Access Denied. You cannot modify this campground post");
 					res.redirect("back");
+				}
 			}
 		});
 	}
-	else 
+	else {
+		req.flash("error", "Access Denied. Please Login");
 		res.redirect("/login");
+	}
 }
 
 middlewareObj.isCommentOwner = function(req, res, next){
 	if(req.isAuthenticated()) {
 		Comment.findById(req.params.comment_id, function(error,thisComment){
-			if(error)
-				res.redirect("back"); 
+			if(error || !thisComment){
+				req.flash("error", "Error. Comment not found");
+				return res.redirect("back"); 
+			}
 			else {
 				if(thisComment.author.id.equals(req.user._id))
 					next();
-				else 
+				else {
+					req.flash("error", "Access Denied. You cannot modify this comment");
 					res.redirect("back");
+				}
 			}
 		});
 	}
-	else 
+	else {
+		req.flash("error", "Access Denied. Please Login");
 		res.redirect("/login");
+	}
 }
 
 module.exports = middlewareObj;
