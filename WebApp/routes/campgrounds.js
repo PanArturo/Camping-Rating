@@ -30,6 +30,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 				username: req.user.username
 			};
 			newCampground.save();
+			req.flash("success", "You have successfully created a new campground post");
 			res.redirect("/campground");
 		}
 	});
@@ -38,8 +39,10 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 // Show Route -> Show the campground info specified from the req.params.id (every campground post has a unique id)
 router.get("/:id", function(req,res){
 	Campground.findById(req.params.id).populate("comments").exec(function(error, thisCampground){
-		if (error) 
-			console.log(error);
+		if (error || !thisCampground) {
+			req.flash("error", "Error. Campground not found");
+			res.redirect("/campground");
+		}
 		else 
 			res.render("campgrounds/show", {campground:thisCampground});
 	});
@@ -48,30 +51,41 @@ router.get("/:id", function(req,res){
 // Edit Route -> Show the form with the data of the selected campground 
 router.get("/:id/edit", middleware.isCampgroundOwner, function(req, res){
 	Campground.findById(req.params.id, function(error,thisCampground){
-		if (error) 
+		if (error || !thisCampground) {
+			req.flash("error", "Error. Campground not found.");
 			res.redirect("/campgrounds");
-		else 
-			res.render("campgrounds/edit", {campground: thisCampground});	
+		}
+		else {
+			res.render("campgrounds/edit", {campground: thisCampground});
+		}
 	});
 });
 
 // Update Route -> Update the campground according to the submitted form and redirect to Show Route
 router.put("/:id", middleware.isCampgroundOwner, function(req, res){
 	Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(error, updatedCampground){
-		if(error) 
-			res.redirect("/campground");
-		else 
+		if(error) {
+			req.flash("error", error.message);
+			res.redirect("/campground"); 
+		}
+		else {
+			req.flash("success", "You have successfully updated the post");
 			res.redirect("/campground/" + updatedCampground._id); 
+		}
 	});
 });
 
 // Delete Route -> Deletes the selected campground including the comments and redirect to Index Route
 router.delete("/:id/delete", middleware.isCampgroundOwner, function(req,res){
 	Campground.findByIdAndRemove(req.params.id, function(error, removedCampground){
-		if(error) res.redirect("/campground");
+		if(error) {
+			req.flash("error", error.message);
+			res.redirect("/campground");
+		}
 		else{ 
 			Comment.deleteMany({_id: {$in: removedCampground.comments } }, (error) => {
-				if (error) console.log (error);
+				if (error) console.log(error);
+				req.flash("success", "You have succesfully deleted the campground post");
 				res.redirect("/campground");
 			});
 		}
