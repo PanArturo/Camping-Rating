@@ -2,7 +2,7 @@
 
 This is a dynamic website with yelp-like features.
 
-## Languages & Frameworks
+## Languages  &  Frameworks
 ### Frontend
           - JavaScript paired with template engine EJS
           - Bootstrap and HTML/CSS
