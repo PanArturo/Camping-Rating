@@ -1,4 +1,4 @@
-# Yelp-Clone          
+# YelpClone          
 
 This is a dynamic website with yelp-like features.
 
