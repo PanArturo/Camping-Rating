@@ -1,8 +1,4 @@
-# Yelp-Clone
-          
-          - Constantly adding and pushing new features, Check it out and any suggestions are welcome.
-          - https://pan-arturo-project-yelpclone.herokuapp.com/
-          
+# Yelp-Clone          
 
 This is a dynamic website with yelp-like features.
 
@@ -23,7 +19,6 @@ This is a dynamic website with yelp-like features.
           - NoSQL (MongoDB)
           - NPM 
           - Code Refactoring 
-          - Deploy using Heroku
-          - Git version control
+          - Deploy using Heroku          
 
 
