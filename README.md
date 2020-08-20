@@ -9,7 +9,7 @@ This is a dynamic website with yelp-like features.
           - MongoDB
           - Heroku
 
-# Techniques
+## Techniques
               
           - RESTful routing 
           - CRUD on database system
