@@ -6,7 +6,7 @@ This is a dynamic website with yelp-like features.
 ### Backend
           - Node & Express
           - RESTful routing          
-          - User Authentication & Authorization (Passport.js)     
+          - User Authentication & Authorization (Passport.js)            
 ### Frontend
           - JavaScript paired with template engine EJS
           - Bootstrap and HTML/CSS
@@ -15,8 +15,8 @@ This is a dynamic website with yelp-like features.
           - MongoDB
           - CRUD on database system          
           - Database associations (user, post, comment, rating) 
-### Deployment          
+### Deployment and Tools         
           - Heroku
-
+          - NPM
 
 
